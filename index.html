@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.login-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    width: 260px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 16px;
+    border: none;
+    background: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+#error {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+    <h3>NETWORK LOGIN</h3>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">LOGIN</button>
+    <div id="error"></div>
+</div>
+
+<script>
+function login() {
+    const users = {
+        "SMILES": {
+            password: "Man_fuck_byte",
+            redirect: "https://sites.google.com/view/sic-moth-network-login/login/SMILES"
+        },
+        "CRASHY_GAL": {
+            password: "straightupcrashingit",
+            redirect: "https://sites.google.com/view/sic-moth-network-login/login/CRASH"
+        },
+        "ANTIDOTE-B": {
+            password: "icanttypesquares",
+            redirect: "https://sites.google.com/view/sic-moth-network-login/login/BYTE"
+        },
+        "LOSTPAGE!!!": {
+            password: "mothwoagh",
+            redirect: "https://sites.google.com/view/sic-moth-network-login/login/LOST"
+        },
+        "NOLIMOLY": {
+            password: "carcat",
+            redirect: "https://sites.google.com/view/sic-moth-network-login/login/NOLI"
+        },
+        "NINTENDO_DS": {
+            password: "prettyprincess",
+            redirect: "https://sites.google.com/view/sic-moth-network-login/login/DEE"
+        }
+    };
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (users[username] && users[username].password === password) {
+        window.location.href = users[username].redirect;
+    } else {
+        document.getElementById("error").textContent = "ACCESS DENIED";
+    }
+}
+</script>
+
+</body>
+</html>
