@@ -9,6 +9,13 @@ body {
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
+    color: white;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
 
 .login-box {
@@ -17,6 +24,7 @@ body {
     border-radius: 12px;
     width: 260px;
     text-align: center;
+    color: black;
 }
 
 input {
@@ -47,45 +55,35 @@ button:hover {
     margin-top: 10px;
     font-size: 14px;
 }
+
+img {
+    max-width: 200px;
+    border-radius: 12px;
+}
 </style>
 </head>
 <body>
 
-<div class="login-box">
-    <h3>NETWORK LOGIN</h3>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">LOGIN</button>
-    <div id="error"></div>
+<div class="container">
+    <img src="sticky.png" alt="SIC Network Logo">
+    <div class="login-box">
+        <h3>NETWORK LOGIN</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">LOGIN</button>
+        <div id="error"></div>
+    </div>
 </div>
 
 <script>
 function login() {
     const users = {
-        "SMILES": {
-            password: "Man_fuck_byte",
-            redirect: "https://sites.google.com/view/sic-moth-network-login/login/SMILES"
-        },
-        "CRASHY_GAL": {
-            password: "straightupcrashingit",
-            redirect: "https://sites.google.com/view/sic-moth-network-login/login/CRASH"
-        },
-        "ANTIDOTE-B": {
-            password: "icanttypesquares",
-            redirect: "https://sites.google.com/view/sic-moth-network-login/login/BYTE"
-        },
-        "LOSTPAGE!!!": {
-            password: "mothwoagh",
-            redirect: "https://sites.google.com/view/sic-moth-network-login/login/LOST"
-        },
-        "NOLIMOLY": {
-            password: "carcat",
-            redirect: "https://sites.google.com/view/sic-moth-network-login/login/NOLI"
-        },
-        "NINTENDO_DS": {
-            password: "prettyprincess",
-            redirect: "https://sites.google.com/view/sic-moth-network-login/login/DEE"
-        }
+        "SMILES": { password: "Man_fuck_byte", redirect: "https://sites.google.com/view/sic-moth-network-login/login/SMILES" },
+        "CRASHY_GAL": { password: "straightupcrashingit", redirect: "https://sites.google.com/view/sic-moth-network-login/login/CRASH" },
+        "ANTIDOTE-B": { password: "icanttypesquares", redirect: "https://sites.google.com/view/sic-moth-network-login/login/BYTE" },
+        "LOSTPAGE!!!": { password: "mothwoagh", redirect: "https://sites.google.com/view/sic-moth-network-login/login/LOST" },
+        "NOLIMOLY": { password: "carcat", redirect: "https://sites.google.com/view/sic-moth-network-login/login/NOLI" },
+        "NINTENDO_DS": { password: "prettyprincess", redirect: "https://sites.google.com/view/sic-moth-network-login/login/DEE" }
     };
 
     const username = document.getElementById("username").value;
