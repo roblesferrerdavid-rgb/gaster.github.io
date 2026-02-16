@@ -73,7 +73,8 @@ body {
     letter-spacing: 1.5px;
     user-select: none;
     opacity: 0;
-    transition: opacity 0.8s ease;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(0);
 }
 
 input {
@@ -199,7 +200,7 @@ body::after {
     width: 400px;
     height: 20px;
     background: #222;
-    border-radius: 10px;
+    border-radius: 0;
     overflow: hidden;
     box-shadow: 0 0 10px #ffd700aa inset;
     z-index: 2000;
@@ -209,7 +210,7 @@ body::after {
     height: 100%;
     width: 0;
     background: linear-gradient(90deg, #ffd700, #ffe066);
-    border-radius: 10px 0 0 10px;
+    border-radius: 0;
     transition: width 0.1s linear;
 }
 
@@ -225,6 +226,9 @@ body::after {
 
 .move-up {
     transform: translateY(-120px);
+}
+.move-up-p {
+    transform: translateY(-110px);
 }
 </style>
 </head>
@@ -268,9 +272,7 @@ const totalSteps = duration / intervalTime;
 
 function updateProgress() {
     if(progress === 0){
-        bootSound.play().catch(() => {
-            // Autoplay might be blocked; ignore errors
-        });
+        bootSound.play().catch(() => {});
     }
     progress++;
     const percent = (progress / totalSteps) * 100;
@@ -280,13 +282,15 @@ function updateProgress() {
         setTimeout(updateProgress, intervalTime);
     } else {
         progressWrapper.style.display = 'none';
+        // Show welcome text fully visible centered
         loginContainer.classList.add('show-welcome');
         welcomeH1.style.opacity = '1';
         welcomeP.style.opacity = '1';
 
+        // Wait 1 sec then move both texts up together to reveal login inputs and sticky note
         setTimeout(() => {
             welcomeH1.classList.add('move-up');
-            welcomeP.style.opacity = '0';
+            welcomeP.classList.add('move-up-p');
             stickyImg.style.opacity = '1';
             loginContainer.style.opacity = '1';
         }, 1000);
@@ -313,7 +317,6 @@ function login() {
     const blackOverlay = document.getElementById('blackOverlay');
 
     if (users[username] && users[username].password === password) {
-
         errorEl.style.color = "#00ff00";
         errorEl.style.textShadow = "0 0 8px #00ff00, 0 0 20px #00ff00";
         errorEl.textContent = "ACCESS GRANTED";
@@ -327,7 +330,6 @@ function login() {
         }, 2000);
 
     } else {
-
         errorEl.style.color = "red";
         errorEl.style.textShadow = "0 0 8px red, 0 0 20px red";
         errorEl.textContent = "ACCESS DENIED";
