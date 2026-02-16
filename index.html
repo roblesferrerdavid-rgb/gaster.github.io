@@ -9,21 +9,28 @@
 
 body {
     background: #111;
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     font-family: Arial, sans-serif;
     color: white;
+    overflow: hidden;
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    gap: 40px;
+/* Bigger off-centered image */
+.sticky-img {
+    position: absolute;
+    left: 8%;
+    max-width: 350px;
 }
 
+/* Centered login area */
 .login-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
 }
 
@@ -36,17 +43,20 @@ body {
     margin: 5px 0;
 }
 
+/* Stack inputs vertically and center */
 input {
     width: 260px;
     padding: 10px;
     margin: 8px 0;
     border-radius: 6px;
     border: 1px solid #ccc;
+    text-align: center;
 }
 
 button {
     width: 260px;
     padding: 10px;
+    margin-top: 8px;
     border-radius: 16px;
     border: none;
     background: #007BFF;
@@ -64,29 +74,22 @@ button:hover {
     margin-top: 10px;
     font-size: 14px;
 }
-
-img {
-    max-width: 200px;
-    border-radius: 12px;
-}
 </style>
 </head>
 <body>
 
-<div class="container">
-    <img src="sticky.png" alt="SIC Network Logo">
-    
-    <div class="login-area">
-        <div class="title">
-            <p>WELCOME TO SIC NETWORK!</p>
-            <p>PLEASE INPUT YOUR CREDENTIALS</p>
-        </div>
+<img src="sticky.png" class="sticky-img" alt="SIC Network Logo">
 
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">LOGIN</button>
-        <div id="error"></div>
+<div class="login-area">
+    <div class="title">
+        <p>WELCOME TO SIC NETWORK!</p>
+        <p>PLEASE INPUT YOUR CREDENTIALS</p>
     </div>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">LOGIN</button>
+    <div id="error"></div>
 </div>
 
 <script>
