@@ -2,6 +2,11 @@
 <html>
 <head>
 <style>
+@font-face {
+    font-family: '8bitoperator';
+    src: url('8bitoperator-JVE.ttf') format('truetype');
+}
+
 body {
     background: #111;
     display: flex;
@@ -18,17 +23,21 @@ body {
     gap: 40px;
 }
 
-.login-box {
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    width: 260px;
+.login-area {
     text-align: center;
-    color: black;
+}
+
+.title {
+    font-family: '8bitoperator', monospace;
+    margin-bottom: 20px;
+}
+
+.title p {
+    margin: 5px 0;
 }
 
 input {
-    width: 100%;
+    width: 260px;
     padding: 10px;
     margin: 8px 0;
     border-radius: 6px;
@@ -36,7 +45,7 @@ input {
 }
 
 button {
-    width: 100%;
+    width: 260px;
     padding: 10px;
     border-radius: 16px;
     border: none;
@@ -66,8 +75,13 @@ img {
 
 <div class="container">
     <img src="sticky.png" alt="SIC Network Logo">
-    <div class="login-box">
-        <h3>NETWORK LOGIN</h3>
+    
+    <div class="login-area">
+        <div class="title">
+            <p>WELCOME TO SIC NETWORK!</p>
+            <p>PLEASE INPUT YOUR CREDENTIALS</p>
+        </div>
+
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
         <button onclick="login()">LOGIN</button>
