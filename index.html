@@ -56,6 +56,7 @@ body {
     text-align: center;
     z-index: 25;
     opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 #welcomeOnly.show {
@@ -64,6 +65,7 @@ body {
 
 #welcomeOnly.moveUp {
     animation: moveUp 1s forwards;
+    z-index: 10;
 }
 
 @keyframes moveUp {
@@ -73,7 +75,7 @@ body {
 
 #mainContent {
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity 0.5s ease;
 }
 
 #mainContent.show {
@@ -178,6 +180,13 @@ button {
     color: red;
     margin-top: 10px;
     font-size: 14px;
+    animation: glow 1.5s infinite;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 8px red; }
+    50% { text-shadow: 0 0 20px red; }
+    100% { text-shadow: 0 0 8px red; }
 }
 
 #powerOff {
@@ -202,6 +211,8 @@ button {
 </style>
 </head>
 <body>
+
+<audio id="bootAudio" src="https://cdn.freesound.org/previews/673/673445_5121236-lq.mp3"></audio>
 
 <div id="bootScreen">
     <div class="progress-container">
@@ -234,6 +245,9 @@ button {
 <div id="powerOff"></div>
 
 <script>
+const bootAudio = document.getElementById("bootAudio");
+bootAudio.play();
+
 setTimeout(() => {
     document.getElementById("bootScreen").style.display = "none";
     const welcome = document.getElementById("welcomeOnly");
@@ -264,7 +278,7 @@ function login() {
     } else {
         document.getElementById("error").textContent = "ACCESS DENIED";
         document.getElementById("loginBtn").style.display = "none";
-
+        document.getElementById("mainContent").style.pointerEvents = "none";
         setTimeout(() => {
             document.getElementById("powerOff").classList.add("active");
         }, 3000);
