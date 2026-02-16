@@ -8,7 +8,7 @@
 }
 
 body {
-    background: #111;
+    background: #000;
     margin: 0;
     height: 100vh;
     display: flex;
@@ -19,11 +19,40 @@ body {
     overflow: hidden;
 }
 
-/* Bigger off-centered image */
+/* CRT Bubble Screen Effect */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 40px;
+    box-shadow: 
+        inset 0 0 120px rgba(0,0,0,0.9),
+        inset 0 0 200px rgba(0,0,0,0.6);
+    z-index: 3;
+}
+
+/* CRT Scanlines */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Bigger sticky image */
 .sticky-img {
     position: absolute;
-    left: 8%;
-    max-width: 350px;
+    left: 5%;
+    max-width: 600px;
 }
 
 /* Centered login area */
@@ -32,18 +61,20 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    z-index: 1;
 }
 
 .title {
     font-family: '8bitoperator', monospace;
     margin-bottom: 20px;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
 }
 
 .title p {
     margin: 5px 0;
 }
 
-/* Stack inputs vertically and center */
+/* Inputs */
 input {
     width: 260px;
     padding: 10px;
@@ -51,22 +82,28 @@ input {
     border-radius: 6px;
     border: 1px solid #ccc;
     text-align: center;
+    background: #111;
+    color: white;
 }
 
+/* Yellow login button */
 button {
     width: 260px;
     padding: 10px;
     margin-top: 8px;
     border-radius: 16px;
     border: none;
-    background: #007BFF;
-    color: white;
+    background: #FFD700;
+    color: black;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 0 12px rgba(255,215,0,0.6);
 }
 
 button:hover {
-    background: #0056b3;
+    background: #ffea00;
+    box-shadow: 0 0 18px rgba(255,255,0,0.8);
 }
 
 #error {
