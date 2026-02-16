@@ -14,73 +14,132 @@ body {
     overflow: hidden;
     font-family: Arial, sans-serif;
     color: white;
-}
-
-#bootScreen {
-    position: fixed;
-    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: black;
-    z-index: 30;
+    gap: 60px;
+    position: relative;
 }
 
-.progress-container {
-    width: 400px;
-    height: 25px;
-    border: 2px solid #FFD700;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: #FFD700;
-    animation: load 5s linear forwards;
-}
-
-@keyframes load {
-    from { width: 0%; }
-    to { width: 100%; }
-}
-
-#welcomeOnly {
+/* Sticky note on the left */
+.sticky-img {
+    max-width: 600px;
+    width: 100%;
     position: fixed;
-    inset: 0;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
+}
+
+/* Login container centered */
+.login-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    background: black;
-    font-family: '8bitoperator', monospace;
+    align-items: center;
     text-align: center;
-    z-index: 25;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    max-width: 300px;
+    gap: 20px;
+    font-family: '8bitoperator', monospace;
+    text-shadow: 1px 0 red, -1px 0 cyan, 0 0 5px white;
 }
 
-#welcomeOnly.show {
-    opacity: 1;
+/* Welcome text at top of login */
+.login-container h1 {
+    font-size: 1.6rem;
+    margin: 0;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    color: white;
+    filter: drop-shadow(0 0 6px cyan) drop-shadow(0 0 6px red);
+    user-select: none;
 }
 
-#welcomeOnly.moveUp {
-    animation: moveUpAndHide 1s forwards;
+/* CRT glitch effect on welcome text */
+.login-container h1.glitch {
+    position: relative;
+    color: white;
+}
+.login-container h1.glitch::before,
+.login-container h1.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    clip: rect(0, 900px, 0, 0);
+}
+.login-container h1.glitch::before {
+    animation: glitchTop 1s infinite linear alternate-reverse;
+    color: red;
+    z-index: -1;
+}
+.login-container h1.glitch::after {
+    animation: glitchBottom 1s infinite linear alternate-reverse;
+    color: cyan;
+    z-index: -2;
 }
 
-@keyframes moveUpAndHide {
-    0% { transform: translateY(0); opacity:1; }
-    100% { transform: translateY(-250px); opacity:0; }
+@keyframes glitchTop {
+    0% { clip: rect(0, 900px, 20px, 0); transform: translate(2px, -2px); }
+    50% { clip: rect(10px, 900px, 30px, 0); transform: translate(-2px, 2px); }
+    100% { clip: rect(0, 900px, 20px, 0); transform: translate(2px, -2px); }
+}
+@keyframes glitchBottom {
+    0% { clip: rect(30px, 900px, 50px, 0); transform: translate(-2px, 2px); }
+    50% { clip: rect(40px, 900px, 60px, 0); transform: translate(2px, -2px); }
+    100% { clip: rect(30px, 900px, 50px, 0); transform: translate(-2px, 2px); }
 }
 
-#mainContent {
-    opacity: 0;
-    transition: opacity 0.5s ease;
+input {
+    width: 260px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background: #111;
+    color: #0f0;
+    font-family: monospace;
+    text-align: center;
+    font-size: 1rem;
+    outline: none;
 }
 
-#mainContent.show {
-    opacity: 1;
+input::placeholder {
+    color: #0a0;
 }
 
+button {
+    width: 260px;
+    padding: 12px 0;
+    border-radius: 16px;
+    border: none;
+    background: #FFD700;
+    color: black;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255,215,0,0.9);
+    user-select: none;
+}
+
+button:hover {
+    background: #e6c200;
+}
+
+#error {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: red;
+    animation: glow 1.5s infinite;
+    min-height: 20px;
+    user-select: none;
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 6px red; }
+    50% { text-shadow: 0 0 20px red; }
+}
+
+/* CRT overlay */
 body::before {
     content: "";
     position: fixed;
@@ -117,12 +176,6 @@ body::after {
     z-index: 3;
 }
 
-.sticky-img {
-    position: absolute;
-    left: 5%;
-    max-width: 600px;
-}
-
 .container {
     animation: distortion 3s infinite ease-in-out;
 }
@@ -135,134 +188,46 @@ body::after {
     100% { transform: skewX(0deg); }
 }
 
-.login-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    text-shadow: 2px 0 red, -2px 0 cyan;
+/* White flash and black overlay for power off */
+#whiteFlash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 1.2s ease;
 }
-
-.title {
-    font-family: '8bitoperator', monospace;
-    margin-bottom: 20px;
-    text-shadow: 2px 0 red, -2px 0 cyan, 0 0 10px white;
-}
-
-input {
-    width: 260px;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 6px;
-    border: 1px solid #555;
-    text-align: center;
-    background: #111;
-    color: #0f0;
-    font-family: monospace;
-}
-
-button {
-    width: 260px;
-    padding: 10px;
-    margin-top: 8px;
-    border-radius: 16px;
-    border: none;
-    background: #FFD700;
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(255,215,0,0.8);
-}
-
-#error {
-    color: red;
-    margin-top: 10px;
-    font-size: 14px;
-    animation: glow 1.5s infinite;
-}
-
-@keyframes glow {
-    0% { text-shadow: 0 0 8px red; }
-    50% { text-shadow: 0 0 20px red; }
-    100% { text-shadow: 0 0 8px red; }
-}
-
-#powerOff {
-    position: fixed;
-    inset: 0;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 100;
-}
-
-#powerOff.active {
-    animation: powerOff 1.2s forwards;
-}
-
-@keyframes powerOff {
-    0% { opacity: 0; }
-    40% { opacity: 1; }
-    60% { opacity: 1; }
-    100% { opacity: 0; background: black; }
+#blackOverlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1001;
+  transition: opacity 0.5s ease;
 }
 </style>
 </head>
 <body>
 
-<audio id="bootAudio" src="terminal.mp3"></audio>
+<img src="sticky.png" alt="Sticky Note" class="sticky-img">
 
-<div id="bootScreen">
-    <div class="progress-container">
-        <div class="progress-bar"></div>
-    </div>
+<div class="login-container container">
+    <h1 class="glitch" data-text="WELCOME TO SIC NETWORK!">WELCOME TO SIC NETWORK!</h1>
+    <p style="margin: 0 0 15px 0; letter-spacing: 1.5px; user-select:none;">PLEASE INPUT YOUR CREDENTIALS</p>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn" onclick="login()">LOGIN</button>
+    <div id="error"></div>
 </div>
 
-<div id="welcomeOnly">
-    <h1>WELCOME TO SIC NETWORK!</h1>
-    <p>PLEASE INPUT YOUR CREDENTIALS</p>
-</div>
+<div class="static"></div>
 
-<div id="mainContent">
-    <div class="static"></div>
-    <img src="sticky.png" class="sticky-img">
-    <div class="container">
-        <div class="login-area">
-            <div class="title">
-                <p>WELCOME TO SIC NETWORK!</p>
-                <p>PLEASE INPUT YOUR CREDENTIALS</p>
-            </div>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button id="loginBtn" onclick="login()">LOGIN</button>
-            <div id="error"></div>
-        </div>
-    </div>
-</div>
-
-<div id="powerOff"></div>
+<div id="whiteFlash"></div>
+<div id="blackOverlay"></div>
 
 <script>
-const bootAudio = document.getElementById("bootAudio");
-bootAudio.play().catch(()=>{});
-
-setTimeout(() => {
-    document.getElementById("bootScreen").style.display = "none";
-    const welcome = document.getElementById("welcomeOnly");
-    welcome.classList.add("show");
-
-    setTimeout(() => {
-        welcome.classList.add("moveUp");
-        // remove welcome div when animation ends
-        welcome.addEventListener('animationend', () => {
-            welcome.remove();
-            document.getElementById("mainContent").classList.add("show");
-        });
-    }, 1000);
-
-}, 5000);
-
 function login() {
     const users = {
         "SMILES": { password: "Man_fuck_byte", redirect: "https://sites.google.com/view/sic-moth-network-login/login/SMILES" },
@@ -275,17 +240,44 @@ function login() {
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    const errorEl = document.getElementById("error");
+    const loginBtn = document.getElementById("loginBtn");
+    const whiteFlash = document.getElementById('whiteFlash');
+    const blackOverlay = document.getElementById('blackOverlay');
 
     if (users[username] && users[username].password === password) {
-        window.location.href = users[username].redirect;
-    } else {
-        const error = document.getElementById("error");
-        error.textContent = "ACCESS DENIED";
-        document.getElementById("loginBtn").style.display = "none";
-        document.getElementById("mainContent").style.pointerEvents = "none";
+
+        errorEl.style.color = "#00ff00";
+        errorEl.style.textShadow = "0 0 8px #00ff00, 0 0 20px #00ff00";
+        errorEl.textContent = "ACCESS GRANTED";
+
+        loginBtn.style.display = "none";
+        document.getElementById("username").disabled = true;
+        document.getElementById("password").disabled = true;
 
         setTimeout(() => {
-            document.getElementById("powerOff").classList.add("active");
+            window.location.href = users[username].redirect;
+        }, 2000);
+
+    } else {
+
+        errorEl.style.color = "red";
+        errorEl.style.textShadow = "0 0 8px red, 0 0 20px red";
+        errorEl.textContent = "ACCESS DENIED";
+
+        loginBtn.style.display = "none";
+        document.getElementById("username").disabled = true;
+        document.getElementById("password").disabled = true;
+
+        setTimeout(() => {
+            whiteFlash.style.opacity = '1';
+
+            setTimeout(() => {
+                whiteFlash.style.opacity = '0';
+                blackOverlay.style.opacity = '1';
+                blackOverlay.style.pointerEvents = 'auto';
+            }, 1200);
+
         }, 3000);
     }
 }
