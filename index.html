@@ -213,6 +213,11 @@ function updateProgress() {
         progressWrapper.style.display = 'none';
         loginContainer.style.opacity = '1';
         stickyImg.style.opacity = '1';
+
+        // FIX: fade in the h1 and p inside login-container
+        loginContainer.querySelectorAll('h1, p').forEach(el => {
+            el.style.opacity = '1';
+        });
     }
 }
 updateProgress();
