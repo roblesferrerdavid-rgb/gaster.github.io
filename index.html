@@ -240,6 +240,7 @@ body::after {
     <div id="progressBar"></div>
 </div>
 
+<img src="sticky.png" alt="Sticky Note" class="sticky-img">
 <img src="sticky2.png" alt="Sticky Note" class="sticky-img">
 
 <div class="login-container container">
@@ -299,8 +300,19 @@ function updateProgress() {
 
 updateProgress();
 
-<script>
-async function login() {
+function login() {
+    const users = {
+        "SMILES": { password: "Man_fuck_byte", redirect: "https://sites.google.com/view/sic-moth-network-login/login/SMILES" },
+        "CRASHY_GAL": { password: "straightupcrashingit", redirect: "https://sites.google.com/view/sic-moth-network-login/login/CRASH" },
+        "ANTIDOTE-B": { password: "icanttypesquares", redirect: "https://sites.google.com/view/sic-moth-network-login/login/BYTE" },
+        "LOSTPAGE!!!": { password: "mothwoagh", redirect: "https://sites.google.com/view/sic-moth-network-login/login/LOST" },
+        "NOLIMOLY": { password: "carcat", redirect: "https://sites.google.com/view/sic-moth-network-login/login/NOLI" },
+        "THE_ROYAL_SCIENTIST": { password: "wingding", redirect: "https://sites.google.com/view/sic-moth-network-login/login/GASTER" },
+        "GAZING_STAR_123": { password: "cometofmylife", redirect: "https://sites.google.com/view/sic-moth-network-login/login/COMET" },
+        "I.THINK.I.EM": { password: "emoting_on_yo_ahh", redirect: "https://sites.google.com/view/sic-moth-network-login/login/EMOTER" },
+        "NINTENDO_DS": { password: "prettyprincess", redirect: "https://sites.google.com/view/sic-moth-network-login/login/DEE" }
+    };
+
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const errorEl = document.getElementById("error");
@@ -308,39 +320,20 @@ async function login() {
     const whiteFlash = document.getElementById('whiteFlash');
     const blackOverlay = document.getElementById('blackOverlay');
 
-    try {
-        const response = await fetch("users.txt");
-        const text = await response.text();
-        const lines = text.split("\n");
+    if (users[username] && users[username].password === password) {
+        errorEl.style.color = "#00ff00";
+        errorEl.style.textShadow = "0 0 8px #00ff00, 0 0 20px #00ff00";
+        errorEl.textContent = "ACCESS GRANTED";
 
-        let foundUser = null;
+        loginBtn.style.display = "none";
+        document.getElementById("username").disabled = true;
+        document.getElementById("password").disabled = true;
 
-        for (let line of lines) {
-            const [user, pass, redirect] = line.trim().split("|");
-            if (user === username && pass === password) {
-                foundUser = redirect;
-                break;
-            }
-        }
+        setTimeout(() => {
+            window.location.href = users[username].redirect;
+        }, 2000);
 
-        if (foundUser) {
-            errorEl.style.color = "#00ff00";
-            errorEl.style.textShadow = "0 0 8px #00ff00, 0 0 20px #00ff00";
-            errorEl.textContent = "ACCESS GRANTED";
-
-            loginBtn.style.display = "none";
-            document.getElementById("username").disabled = true;
-            document.getElementById("password").disabled = true;
-
-            setTimeout(() => {
-                window.location.href = foundUser;
-            }, 2000);
-
-        } else {
-            throw new Error("Invalid login");
-        }
-
-    } catch (err) {
+    } else {
         errorEl.style.color = "red";
         errorEl.style.textShadow = "0 0 8px red, 0 0 20px red";
         errorEl.textContent = "ACCESS DENIED";
@@ -362,7 +355,6 @@ async function login() {
     }
 }
 </script>
-
 
 </body>
 </html>
